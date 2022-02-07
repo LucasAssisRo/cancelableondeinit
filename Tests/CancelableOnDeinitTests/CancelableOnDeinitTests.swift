@@ -1,11 +1,20 @@
-import XCTest
 @testable import CancelableOnDeinit
+import SwiftUI
+import XCTest
 
 final class CancelableOnDeinitTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(CancelableOnDeinit().text, "Hello, World!")
+    final class TestCancel: CancelableOnDeinit {
+        static var didCancelOnDeinit = false
+        var isCanceled = false
+
+        func cancelOnDeinit() { Self.didCancelOnDeinit = true }
+    }
+
+    func testCancel() throws {
+        var test1 = TestCancel().asCancelOnDeinit()
+        test1 = TestCancel().asCancelOnDeinit()
+
+        XCTAssertNotNil(test1)
+        XCTAssertTrue(TestCancel.didCancelOnDeinit)
     }
 }

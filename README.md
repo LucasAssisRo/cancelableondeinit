@@ -1,3 +1,3 @@
 # CancelableOnDeinit
 
-A description of this package.
+Contains a convenience protocol to cancel operations on `deinit`. 
