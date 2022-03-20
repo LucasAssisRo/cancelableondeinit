@@ -4,7 +4,7 @@ Contains a convenience protocol to cancel operations on `deinit`.
 
 ## Usage
 
-```
+```swift
 extension Foo: CancelableOnDeinit {
   func cancelOnDeinit() { cancel() }
 }
