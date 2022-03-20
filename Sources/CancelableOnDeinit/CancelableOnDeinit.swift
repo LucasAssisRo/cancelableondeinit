@@ -1,18 +1,3 @@
-// MARK: - CancelOnDeinit
-
-import Foundation
-
-// MARK: - CancelOnDeinit
-
-private final class CancelOnDeinit<Cancelable: CancelableOnDeinit> {
-    let cancelable: Cancelable?
-
-    init(cancelable: Cancelable) { self.cancelable = cancelable }
-    deinit { cancelable?.cancelOnDeinit() }
-
-    func cancelOnDeinit() { cancelable?.cancelOnDeinit() }
-}
-
 // MARK: - CancelableOnDeinit
 
 /// Implement this protocol to allow types to automatically cancel themselves on `deinit`.
@@ -26,5 +11,14 @@ public extension CancelableOnDeinit {
     /// - Important: The token needs to be stored in memory if this method is called otherwise the operation will be canceled
     ///   as soon as the current scope ends.
     /// - Returns: The cancel on deinit token.
-    func asCancelOnDeinit() -> Any { CancelOnDeinit(cancelable: self) }
+    func asCancelOnDeinit() -> CancelOnDeinit<Self> { CancelOnDeinit(cancelable: self) }
 }
+
+// MARK: - Task + CancelableOnDeinit
+
+@available(macOS 10.15, *)
+@available(iOS 13.0, *)
+extension Task: CancelableOnDeinit {
+    public func cancelOnDeinit() { cancel() }
+}
+
