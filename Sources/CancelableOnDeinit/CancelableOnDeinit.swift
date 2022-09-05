@@ -18,6 +18,7 @@ public extension CancelableOnDeinit {
 
 @available(macOS 10.15, *)
 @available(iOS 13.0, *)
+@available(tvOS 13.0, *)
 extension Task: CancelableOnDeinit {
     public func cancelOnDeinit() { cancel() }
 }
