@@ -1,5 +1,7 @@
-// swift-tools-version:5.5
+// swift-tools-version: 5.7
+
 import PackageDescription
+
 let package = Package(
     name: "CancelableOnDeinit",
     products: [
