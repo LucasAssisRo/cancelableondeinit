@@ -1,3 +1,5 @@
 # CancelableOnDeinit
 
-Contains a convenience protocol to cancel operations on `deinit`. 
+Cancel an operation automatically when its owner goes away.
+
+[API documentation](https://lucasassisro.github.io/cancelableondeinit/)
