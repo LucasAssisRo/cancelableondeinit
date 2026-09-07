@@ -10,6 +10,9 @@ let package = Package(
       targets: ["CancelableOnDeinit"]
     ),
   ],
+  dependencies: [
+    .package(url: "https://github.com/apple/swift-docc-plugin.git", .upToNextMajor(from: "1.4.3")),
+  ],
   targets: [
     .target(
       name: "CancelableOnDeinit",
