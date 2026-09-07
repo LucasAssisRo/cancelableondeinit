@@ -1,44 +1,44 @@
 @testable import CancelableOnDeinit
-import XCTest
+import Testing
 
-final class CancelableOnDeinitTests: XCTestCase {
-  final class TestCancel: CancelableOnDeinit {
-    static var didCancelOnDeinit = false
+struct `Cancelable on deinit tests` {
+  final class TestCancelable: CancelableOnDeinit {
+    var didCancelOnDeinit = false
+
     func cancelOnDeinit() {
-      Self.didCancelOnDeinit = true
+      didCancelOnDeinit = true
     }
   }
 
-  override class func tearDown() {
-    super.tearDown()
-    TestCancel.didCancelOnDeinit = false
+  @Test func `reassigning cancels the previous value`() {
+    let previous = TestCancelable()
+    @CancelOnDeinit var cancelable = previous
+    cancelable = TestCancelable()
+    #expect(cancelable != nil)
+    #expect(previous.didCancelOnDeinit)
   }
 
-  func testCancel() {
-    @CancelOnDeinit var test1 = TestCancel()
-    test1 = TestCancel()
-    XCTAssertNotNil(test1)
-    XCTAssertTrue(TestCancel.didCancelOnDeinit)
+  @Test func `calling the projected value cancels the wrapped value`() {
+    let value = TestCancelable()
+    @CancelOnDeinit var cancelable = value
+    $cancelable()
+    #expect(cancelable != nil)
+    #expect(value.didCancelOnDeinit)
   }
 
-  func testCancelProjected() {
-    @CancelOnDeinit var test1 = TestCancel()
-    $test1()
-    XCTAssertNotNil(test1)
-    XCTAssertTrue(TestCancel.didCancelOnDeinit)
+  @Test func `assigning nil cancels the wrapped value`() {
+    let value = TestCancelable()
+    @CancelOnDeinit var cancelable = value
+    cancelable = nil
+    #expect(cancelable == nil)
+    #expect(value.didCancelOnDeinit)
   }
 
-  func testCancelNil() {
-    @CancelOnDeinit var test1 = TestCancel()
-    test1 = nil
-    XCTAssertNil(test1)
-    XCTAssertTrue(TestCancel.didCancelOnDeinit)
-  }
-
-  func testAsCancelOnDeinit() {
-    var test1: Any? = TestCancel().asCancelOnDeinit()
-    test1 = nil
-    XCTAssertNil(test1)
-    XCTAssertTrue(TestCancel.didCancelOnDeinit)
+  @Test func `releasing the token cancels the value`() {
+    let value = TestCancelable()
+    var token: Any? = value.asCancelOnDeinit()
+    token = nil
+    #expect(token == nil)
+    #expect(value.didCancelOnDeinit)
   }
 }
