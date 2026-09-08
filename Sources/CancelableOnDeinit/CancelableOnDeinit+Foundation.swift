@@ -8,21 +8,21 @@
     }
   }
 
-  extension DispatchWorkItem {
+  extension DispatchWorkItem: CancelableOnDeinit {
     /// Cancels the work item.
     public func cancelOnDeinit() {
       cancel()
     }
   }
 
-  extension Timer {
+  extension Timer: CancelableOnDeinit {
     /// Invalidates the timer, which also releases its target.
     public func cancelOnDeinit() {
       invalidate()
     }
   }
 
-  extension URLSessionTask {
+  extension URLSessionTask: CancelableOnDeinit {
     /// Cancels the task, failing it with `NSURLErrorCancelled`.
     public func cancelOnDeinit() {
       cancel()
