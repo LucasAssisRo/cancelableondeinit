@@ -31,10 +31,10 @@
   }
 }
 
-public extension CancelOnDeinit {
+extension CancelOnDeinit {
   /// Creates a wrapper holding an operation.
   /// - Parameter cancelable: Operation to cancel on reassignment or `deinit`.
-  convenience init(cancelable: Cancelable?) {
+  public convenience init(cancelable: Cancelable?) {
     self.init(wrappedValue: cancelable)
   }
 }

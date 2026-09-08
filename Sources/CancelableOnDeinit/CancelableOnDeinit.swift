@@ -6,12 +6,12 @@ public protocol CancelableOnDeinit {
   func cancelOnDeinit()
 }
 
-public extension CancelableOnDeinit {
+extension CancelableOnDeinit {
   /// Transforms the object into a cancel on deinit token.
   /// - Important: The token needs to be stored in memory if this method is called otherwise the operation will be canceled
   ///   as soon as the current scope ends.
   /// - Returns: The cancel on deinit token.
-  func asCancelOnDeinit() -> CancelOnDeinit<Self> {
+  public func asCancelOnDeinit() -> CancelOnDeinit<Self> {
     CancelOnDeinit(cancelable: self)
   }
 }
