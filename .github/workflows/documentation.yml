@@ -43,6 +43,8 @@ jobs:
           swift package --allow-writing-to-directory ./docs \
             generate-documentation \
             --target CancelableOnDeinit \
+            --target CancelableOnDeinitCocoa \
+            --enable-experimental-combined-documentation \
             --transform-for-static-hosting \
             --hosting-base-path cancelableondeinit \
             --output-path ./docs
@@ -54,10 +56,10 @@ jobs:
           <html lang="en">
             <head>
               <meta charset="utf-8">
-              <meta http-equiv="refresh" content="0; url=./documentation/cancelableondeinit/">
+              <meta http-equiv="refresh" content="0; url=./documentation/">
               <title>CancelableOnDeinit</title>
             </head>
-            <body><a href="./documentation/cancelableondeinit/">CancelableOnDeinit documentation</a></body>
+            <body><a href="./documentation/">CancelableOnDeinit documentation</a></body>
           </html>
           HTML
 
