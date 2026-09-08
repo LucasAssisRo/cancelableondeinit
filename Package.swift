@@ -7,7 +7,11 @@ let package = Package(
   products: [
     .library(
       name: "CancelableOnDeinit",
-      targets: ["CancelableOnDeinit"]
+      targets: ["CancelableOnDeinit"],
+    ),
+    .library(
+      name: "CancelableOnDeinitCocoa",
+      targets: ["CancelableOnDeinitCocoa"],
     ),
   ],
   dependencies: [
@@ -16,11 +20,15 @@ let package = Package(
   targets: [
     .target(
       name: "CancelableOnDeinit",
-      dependencies: []
+      dependencies: [],
+    ),
+    .target(
+      name: "CancelableOnDeinitCocoa",
+      dependencies: ["CancelableOnDeinit"],
     ),
     .testTarget(
       name: "CancelableOnDeinitTests",
-      dependencies: ["CancelableOnDeinit"]
+      dependencies: ["CancelableOnDeinit"],
     ),
-  ]
+  ],
 )
